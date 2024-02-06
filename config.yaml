@@ -1,0 +1,13 @@
+server:
+  port: ":8080"
+
+database:
+  type: "mysql"
+  user: "root"
+  password: "password"
+  name: "myapp"
+  host: "localhost"
+  port: "3306"
+
+security:
+  secretKey: "your-secret-key"

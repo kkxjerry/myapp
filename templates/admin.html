@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Admin Dashboard</a>
+  <button class="btn btn-outline-success my-2 my-sm-0" onclick="exportUsers()">Export Users</button>
+</nav>
+
+<div class="container mt-4">
+  <h2>Uploaded Images</h2>
+  <div id="imagesList" class="row">
+    <!-- Images will be loaded here -->
+  </div>
+</div>
+
+<script>
+  // Function to simulate loading images
+  function loadImages() {
+    // This is just a placeholder. You should load actual images from your server.
+    var images = [
+      {id: 1, src: 'path/to/image1.jpg'},
+      {id: 2, src: 'path/to/image2.jpg'},
+      // Add more images
+    ];
+
+    var imagesList = $('#imagesList');
+    images.forEach(function(image) {
+      imagesList.append(
+              '<div class="col-md-4 mb-4">' +
+              '<div class="card">' +
+              '<img src="' + image.src + '" class="card-img-top" alt="...">' +
+              '<div class="card-body">' +
+              '<a href="#" class="btn btn-danger" onclick="deleteImage(' + image.id + ')">Delete</a>' +
+              '</div>' +
+              '</div>' +
+              '</div>'
+      );
+    });
+  }
+
+  // Function to delete an image
+  function deleteImage(imageId) {
+    // Implement actual delete functionality here
+    console.log("Deleting image with ID:", imageId);
+    // For demonstration, just remove the image element
+    // In a real app, you would send a request to the server to delete the image
+  }
+
+  // Function to export users
+  function exportUsers() {
+    console.log("Exporting users...");
+    // Implement the actual export functionality here
+    // For demonstration, this just logs to the console
+  }
+
+  $(document).ready(function() {
+    loadImages();
+  });
+</script>
+</body>
+</html>
