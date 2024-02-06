@@ -40,6 +40,7 @@ func main() {
 		})
 		auth.GET("/images", handlers.GetImages)
 		auth.POST("/logout", handlers.Logout)
+		auth.GET("/upload", handlers.ShowUploadPage)
 		auth.POST("/upload", handlers.UploadImage)
 		auth.GET("/image/:id/download", handlers.DownloadImage)
 	}
