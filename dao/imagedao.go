@@ -2,6 +2,7 @@ package dao
 
 import (
 	"gorm.io/gorm"
+	"myapp/global"
 	"myapp/models"
 )
 
@@ -15,22 +16,22 @@ func NewImageDao(db *gorm.DB) *ImageDao {
 
 // 删除图片
 func (dao *ImageDao) DeleteImage(imageID uint) error {
-	result := dao.db.Delete(&models.Image{}, imageID)
+	result := global.DB.Delete(&models.Image{}, imageID)
 	return result.Error
 }
-func (dao *ImageDao) GetImageByID(id uint) (*models.Image, error) {
+func (dao *ImageDao) GetImageByID(id string) (*models.Image, error) {
 	var image models.Image
-	err := dao.db.Preload("Comments").First(&image, id).Error
+	err := global.DB.Preload("Comments").First(&image, id).Error
 	return &image, err
 }
 
-func (dao *ImageDao) UpdateLikes(id uint, likes int) error {
-	return dao.db.Model(&models.Image{}).Where("id = ?", id).Update("likes", gorm.Expr("likes + ?", likes)).Error
+func (dao *ImageDao) UpdateLikes(id string, likes int) error {
+	return global.DB.Model(&models.Image{}).Where("id = ?", id).Update("likes", gorm.Expr("likes + ?", likes)).Error
 }
 
-func (dao *ImageDao) GetImageFilePathByID(id uint) (string, error) {
+func (dao *ImageDao) GetImageFilePathByID(id string) (string, error) {
 	var image models.Image
-	err := dao.db.Select("path").First(&image, id).Error
+	err := global.DB.Select("path").First(&image, id).Error
 	if err != nil {
 		return "", err
 	}
@@ -38,5 +39,10 @@ func (dao *ImageDao) GetImageFilePathByID(id uint) (string, error) {
 }
 
 func (dao *ImageDao) AddComment(comment *models.Comment) error {
-	return dao.db.Create(comment).Error
+	return global.DB.Create(comment).Error
+}
+func (dao *ImageDao) GetAllImages(image *[]*models.Image) error {
+	err := global.DB.Find(&image)
+	return err.Error
+
 }

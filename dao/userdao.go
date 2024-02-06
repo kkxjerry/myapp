@@ -2,6 +2,7 @@ package dao
 
 import (
 	"gorm.io/gorm"
+	"myapp/global"
 	"myapp/models"
 )
 
@@ -16,7 +17,7 @@ func NewUserDao(db *gorm.DB) *UserDao {
 // 通过用户名查找用户
 func (dao *UserDao) FindByUsername(username string) (*models.User, error) {
 	var user models.User
-	result := dao.db.Where("username = ?", username).First(&user)
+	result := global.DB.Where("username = ?", username).First(&user)
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -24,6 +25,6 @@ func (dao *UserDao) FindByUsername(username string) (*models.User, error) {
 }
 func (dao *UserDao) GetAllUsers() ([]models.User, error) {
 	var users []models.User
-	result := dao.db.Find(&users)
+	result := global.DB.Find(&users)
 	return users, result.Error
 }

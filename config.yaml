@@ -4,9 +4,9 @@ server:
 database:
   type: "mysql"
   user: "root"
-  password: "password"
+  password: "123"
   name: "myapp"
-  host: "localhost"
+  host: "39.101.182.201"
   port: "3306"
 
 security:
